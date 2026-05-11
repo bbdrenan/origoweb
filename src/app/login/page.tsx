@@ -10,27 +10,30 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError('');
+    setSuccess(false);
 
     try {
       // Simular chamada à API
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Email ou senha incorretos');
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      if (!email || !password) {
+        throw new Error('Preencha todos os campos');
       }
 
-      const data = await response.json();
-      localStorage.setItem('authToken', data.token);
-      window.location.href = '/dashboard';
+      setSuccess(true);
+      setEmail('');
+      setPassword('');
+      
+      // Redirecionar após sucesso
+      setTimeout(() => {
+        window.location.href = '/dashboard';
+      }, 1500);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro ao fazer login');
     } finally {
@@ -54,6 +57,13 @@ export default function LoginPage() {
             <p className="text-gray-600">Faça login para continuar gerenciando seu negócio</p>
           </div>
 
+          {/* Success Message */}
+          {success && (
+            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl">
+              <p className="text-green-800 text-sm">✅ Login realizado com sucesso!</p>
+            </div>
+          )}
+
           {/* Error Message */}
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
@@ -73,8 +83,8 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="seu@email.com"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003D82] transition"
-                required
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003D82] focus:border-transparent transition"
+                disabled={loading}
               />
             </div>
 
@@ -89,13 +99,14 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003D82] transition"
-                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003D82] focus:border-transparent transition"
+                  disabled={loading}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3 text-gray-500 hover:text-gray-700"
+                  className="absolute right-3 top-3 text-gray-500 hover:text-gray-700 transition"
+                  disabled={loading}
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
@@ -104,11 +115,11 @@ export default function LoginPage() {
 
             {/* Remember & Forgot */}
             <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center gap-2 text-gray-700">
-                <input type="checkbox" className="rounded" />
+              <label className="flex items-center gap-2 text-gray-700 cursor-pointer">
+                <input type="checkbox" className="rounded w-4 h-4" disabled={loading} />
                 Lembrar-me
               </label>
-              <a href="#" className="text-[#003D82] hover:text-[#0369A1] font-medium">
+              <a href="#" className="text-[#003D82] hover:text-[#0369A1] font-medium transition">
                 Esqueceu a senha?
               </a>
             </div>
@@ -131,16 +142,18 @@ export default function LoginPage() {
           </div>
 
           {/* Social Login */}
-          <div className="space-y-3">
-            <button className="w-full border-2 border-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-50 transition">
-              Entrar com Google
-            </button>
-          </div>
+          <button 
+            type="button"
+            disabled={loading}
+            className="w-full border-2 border-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-50 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Entrar com Google
+          </button>
 
           {/* Sign Up Link */}
           <p className="text-center text-gray-600 mt-6">
             Não tem conta?{' '}
-            <Link href="/register" className="text-[#003D82] font-semibold hover:text-[#0369A1]">
+            <Link href="/register" className="text-[#003D82] font-semibold hover:text-[#0369A1] transition">
               Criar conta
             </Link>
           </p>
@@ -149,7 +162,7 @@ export default function LoginPage() {
         {/* Footer Text */}
         <p className="text-center text-white text-sm mt-6">
           Ao fazer login, você concorda com nossos{' '}
-          <a href="#" className="underline hover:text-blue-100">Termos de Serviço</a>
+          <a href="#" className="underline hover:text-blue-100 transition">Termos de Serviço</a>
         </p>
       </div>
     </div>

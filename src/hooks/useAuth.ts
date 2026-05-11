@@ -1,115 +1,94 @@
 'use client';
 
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import type { User, AuthContextType } from '@/types/auth';
+import { useState, useCallback } from 'react';
 
-interface AuthStore extends AuthContextType {
-  setUser: (user: User | null) => void;
-  setLoading: (loading: boolean) => void;
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  businessName?: string;
 }
 
-const createStore = () => create<AuthStore>()(
-  persist(
-    (set) => ({
-      user: null,
-      isLoading: false,
-      isAuthenticated: false,
-
-      setUser: (user) => set({ user, isAuthenticated: !!user }),
-      setLoading: (loading) => set({ isLoading: loading }),
-
-      login: async (email: string, password: string) => {
-        set({ isLoading: true });
-        try {
-          const response = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-          });
-
-          if (!response.ok) throw new Error('Login failed');
-
-          const { user, token } = await response.json();
-          localStorage.setItem('authToken', token);
-          set({ user, isAuthenticated: true });
-        } finally {
-          set({ isLoading: false });
-        }
-      },
-
-      register: async (email: string, password: string, name: string, businessName: string) => {
-        set({ isLoading: true });
-        try {
-          const response = await fetch('/api/auth/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password, name, businessName }),
-          });
-
-          if (!response.ok) throw new Error('Registration failed');
-
-          const { user, token } = await response.json();
-          localStorage.setItem('authToken', token);
-          set({ user, isAuthenticated: true });
-        } finally {
-          set({ isLoading: false });
-        }
-      },
-
-      logout: async () => {
-        localStorage.removeItem('authToken');
-        set({ user: null, isAuthenticated: false });
-      },
-
-      updateProfile: async (data: Partial<User>) => {
-        set({ isLoading: true });
-        try {
-          const response = await fetch('/api/auth/profile', {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${localStorage.getItem('authToken')}`,
-            },
-            body: JSON.stringify(data),
-          });
-
-          if (!response.ok) throw new Error('Update failed');
-
-          const { user } = await response.json();
-          set({ user });
-        } finally {
-          set({ isLoading: false });
-        }
-      },
-    }),
-    {
-      name: 'auth-storage',
-      partialize: (state) => ({ user: state.user }),
-    }
-  )
-);
-
-let authStore: any = null;
+export interface AuthContextType {
+  user: User | null;
+  isLoading: boolean;
+  isAuthenticated: boolean;
+}
 
 export function useAuth() {
-  if (typeof window === 'undefined') {
-    return {
-      user: null,
-      isLoading: false,
-      isAuthenticated: false,
-      setUser: () => {},
-      setLoading: () => {},
-      login: async () => {},
-      register: async () => {},
-      logout: async () => {},
-      updateProfile: async () => {},
-    };
-  }
-  if (!authStore) {
-    authStore = createStore();
-  }
-  return authStore();
-}
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-export const useAuthStore = createStore();
+  const login = useCallback(async (email: string, password: string) => {
+    setIsLoading(true);
+    try {
+      // Validar entrada
+      if (!email || !password) {
+        throw new Error('Email e senha são obrigatórios');
+      }
+      
+      // Simular chamada à API
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      const mockUser: User = {
+        id: '1',
+        name: 'Usuário',
+        email: email,
+        businessName: 'Meu Negócio',
+      };
+      
+      setUser(mockUser);
+      setIsAuthenticated(true);
+      localStorage.setItem('authToken', 'mock-token');
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const register = useCallback(async (
+    email: string,
+    password: string,
+    name: string,
+    businessName: string
+  ) => {
+    setIsLoading(true);
+    try {
+      // Validar entrada
+      if (!email || !password || !name || !businessName) {
+        throw new Error('Todos os campos são obrigatórios');
+      }
+      
+      // Simular chamada à API
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      const mockUser: User = {
+        id: '1',
+        name: name,
+        email: email,
+        businessName: businessName,
+      };
+      
+      setUser(mockUser);
+      setIsAuthenticated(true);
+      localStorage.setItem('authToken', 'mock-token');
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const logout = useCallback(async () => {
+    setUser(null);
+    setIsAuthenticated(false);
+    localStorage.removeItem('authToken');
+  }, []);
+
+  return {
+    user,
+    isLoading,
+    isAuthenticated,
+    login,
+    register,
+    logout,
+  };
+}
