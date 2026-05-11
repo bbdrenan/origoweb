@@ -2,6 +2,11 @@
   "version": 2,
   "buildCommand": "bash build.sh",
   "outputDirectory": "out",
-  "env": {},
-  "public": true
+  "public": true,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
