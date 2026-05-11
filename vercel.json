@@ -1,4 +1,7 @@
 {
+  "version": 2,
   "buildCommand": "bash build.sh",
-  "outputDirectory": "out"
+  "outputDirectory": "out",
+  "env": {},
+  "public": true
 }
