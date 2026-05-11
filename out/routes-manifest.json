@@ -1,0 +1,9 @@
+{
+  "version": 5,
+  "pages404": true,
+  "basePath": "",
+  "redirects": [],
+  "rewrites": [],
+  "headers": [],
+  "dataRoutes": []
+}
