@@ -1,6 +1,6 @@
 'use client';
 
-import { CheckCircle, Shield, RotateCcw } from 'lucide-react';
+import { CheckCircle, Shield } from 'lucide-react';
 
 export function Guarantee() {
   return (

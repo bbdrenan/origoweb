@@ -1,10 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { loadStripe } from '@stripe/js';
-import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '');
 
 interface StripePaymentProps {
   planId: 'free' | 'premium';
@@ -14,41 +10,36 @@ interface StripePaymentProps {
   onError?: (error: string) => void;
 }
 
-function PaymentForm({ planId, planName, price, onSuccess, onError }: StripePaymentProps) {
-  const stripe = useStripe();
-  const elements = useElements();
+export function StripePayment({ planId, planName, price, onSuccess, onError }: StripePaymentProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [formData, setFormData] = useState({
+    cardNumber: '',
+    expiryDate: '',
+    cvc: '',
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!stripe || !elements) {
-      setError('Stripe não carregou corretamente');
-      return;
-    }
-
     setLoading(true);
     setError(null);
 
     try {
-      // Criar token do cartão
-      const { token } = await stripe.createToken(elements.getElement(CardElement)!);
-
-      if (!token) {
-        throw new Error('Erro ao processar cartão');
+      // Validação básica
+      if (!formData.cardNumber || !formData.expiryDate || !formData.cvc) {
+        throw new Error('Preencha todos os campos do cartão');
       }
 
-      // Enviar para backend para criar subscription
+      // Simular envio para backend
       const response = await fetch('/api/stripe/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          token: token.id,
           planId,
           planName,
           price,
+          cardNumber: formData.cardNumber,
         }),
       });
 
@@ -80,23 +71,44 @@ function PaymentForm({ planId, planName, price, onSuccess, onError }: StripePaym
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="bg-white border border-gray-300 rounded-lg p-4">
-        <CardElement
-          options={{
-            style: {
-              base: {
-                fontSize: '16px',
-                color: '#424770',
-                '::placeholder': {
-                  color: '#aab7c4',
-                },
-              },
-              invalid: {
-                color: '#9e2146',
-              },
-            },
-          }}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Número do Cartão
+        </label>
+        <input
+          type="text"
+          placeholder="1234 5678 9012 3456"
+          value={formData.cardNumber}
+          onChange={(e) => setFormData({ ...formData, cardNumber: e.target.value })}
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            Data de Validade
+          </label>
+          <input
+            type="text"
+            placeholder="MM/YY"
+            value={formData.expiryDate}
+            onChange={(e) => setFormData({ ...formData, expiryDate: e.target.value })}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            CVC
+          </label>
+          <input
+            type="text"
+            placeholder="123"
+            value={formData.cvc}
+            onChange={(e) => setFormData({ ...formData, cvc: e.target.value })}
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
       </div>
 
       {error && (
@@ -113,23 +125,15 @@ function PaymentForm({ planId, planName, price, onSuccess, onError }: StripePaym
 
       <button
         type="submit"
-        disabled={!stripe || loading}
+        disabled={loading}
         className="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 transition"
       >
         {loading ? 'Processando...' : `Assinar ${planName}`}
       </button>
 
       <p className="text-xs text-gray-500 text-center">
-        Seu pagamento é seguro e processado por Stripe. Nenhuma informação de cartão é armazenada em nossos servidores.
+        Seu pagamento é seguro. Nenhuma informação de cartão é armazenada em nossos servidores.
       </p>
     </form>
-  );
-}
-
-export function StripePayment(props: StripePaymentProps) {
-  return (
-    <Elements stripe={stripePromise}>
-      <PaymentForm {...props} />
-    </Elements>
   );
 }

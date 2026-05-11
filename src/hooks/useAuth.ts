@@ -9,7 +9,7 @@ interface AuthStore extends AuthContextType {
   setLoading: (loading: boolean) => void;
 }
 
-export const useAuthStore = create<AuthStore>()(
+const createStore = () => create<AuthStore>()(
   persist(
     (set) => ({
       user: null,
@@ -90,6 +90,26 @@ export const useAuthStore = create<AuthStore>()(
   )
 );
 
+let authStore: any = null;
+
 export function useAuth() {
-  return useAuthStore();
+  if (typeof window === 'undefined') {
+    return {
+      user: null,
+      isLoading: false,
+      isAuthenticated: false,
+      setUser: () => {},
+      setLoading: () => {},
+      login: async () => {},
+      register: async () => {},
+      logout: async () => {},
+      updateProfile: async () => {},
+    };
+  }
+  if (!authStore) {
+    authStore = createStore();
+  }
+  return authStore();
 }
+
+export const useAuthStore = createStore();

@@ -56,6 +56,9 @@ export function SupportChat() {
 export function showChatMessage(message: string) {
   if (typeof window !== 'undefined' && window.Intercom) {
     window.Intercom('showMessages');
+    if (message) {
+      window.Intercom('update', { message });
+    }
   }
 }
 
