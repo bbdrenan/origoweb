@@ -3,7 +3,7 @@
   "outputDirectory": ".next",
   "installCommand": "npm install",
   "env": {
-    "NEXT_PUBLIC_API_URL": "@next_public_api_url",
+    "NEXT_PUBLIC_API_URL": "https://api.origoerp.com.br",
     "NEXT_PUBLIC_APP_NAME": "OrigoERP",
     "NEXT_PUBLIC_APP_VERSION": "1.0.0"
   },
