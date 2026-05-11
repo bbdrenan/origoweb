@@ -80,12 +80,10 @@ export default function RegisterPage() {
     setError('');
 
     try {
-      // Simular chamada à API
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       setSuccess(true);
       
-      // Redirecionar após sucesso
       setTimeout(() => {
         window.location.href = '/dashboard';
       }, 2000);
@@ -97,10 +95,10 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#003D82] via-[#0369A1] to-[#00B4D8] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Card */}
-        <div className="bg-white rounded-2xl shadow-2xl p-8 md:p-12">
+        <div className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-2xl shadow-2xl p-8 md:p-12">
           {/* Header */}
           <div className="text-center mb-8">
             <img 
@@ -108,29 +106,29 @@ export default function RegisterPage() {
               alt="OrigoERP" 
               className="w-16 h-16 mx-auto mb-4" 
             />
-            <h1 className="text-3xl font-bold text-[#003D82] mb-2">OrigoERP</h1>
-            <p className="text-gray-600 text-sm">
+            <h1 className="text-3xl font-bold text-white mb-2">OrigoERP</h1>
+            <p className="text-slate-400 text-sm">
               {step === 1 ? 'Crie sua conta' : 'Informações do seu negócio'}
             </p>
           </div>
 
           {/* Progress Bar */}
           <div className="mb-8 flex gap-2">
-            <div className={`flex-1 h-2 rounded-full transition-all duration-300 ${step >= 1 ? 'bg-[#003D82]' : 'bg-gray-200'}`} />
-            <div className={`flex-1 h-2 rounded-full transition-all duration-300 ${step >= 2 ? 'bg-[#003D82]' : 'bg-gray-200'}`} />
+            <div className={`flex-1 h-2 rounded-full transition-all duration-300 ${step >= 1 ? 'bg-gradient-to-r from-cyan-500 to-blue-600' : 'bg-slate-700'}`} />
+            <div className={`flex-1 h-2 rounded-full transition-all duration-300 ${step >= 2 ? 'bg-gradient-to-r from-cyan-500 to-blue-600' : 'bg-slate-700'}`} />
           </div>
 
           {/* Success Message */}
           {success && (
-            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl">
-              <p className="text-green-800 text-sm">✅ Conta criada com sucesso!</p>
+            <div className="mb-6 p-4 bg-green-500/10 border border-green-500/50 rounded-xl">
+              <p className="text-green-400 text-sm">✅ Conta criada com sucesso!</p>
             </div>
           )}
 
           {/* Error Message */}
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
-              <p className="text-red-800 text-sm">❌ {error}</p>
+            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/50 rounded-xl">
+              <p className="text-red-400 text-sm">❌ {error}</p>
             </div>
           )}
 
@@ -139,7 +137,7 @@ export default function RegisterPage() {
             <form onSubmit={handleNext} className="space-y-4">
               {/* Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Nome Completo
                 </label>
                 <input
@@ -148,14 +146,14 @@ export default function RegisterPage() {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Seu nome"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003D82] focus:border-transparent transition"
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition"
                   disabled={loading}
                 />
               </div>
 
               {/* Email */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Email
                 </label>
                 <input
@@ -164,14 +162,14 @@ export default function RegisterPage() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="seu@email.com"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003D82] focus:border-transparent transition"
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition"
                   disabled={loading}
                 />
               </div>
 
               {/* Password */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Senha
                 </label>
                 <div className="relative">
@@ -181,13 +179,13 @@ export default function RegisterPage() {
                     value={formData.password}
                     onChange={handleChange}
                     placeholder="••••••••"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003D82] focus:border-transparent transition"
+                    className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition"
                     disabled={loading}
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-3 text-gray-500 hover:text-gray-700 transition"
+                    className="absolute right-3 top-3 text-slate-400 hover:text-slate-300 transition"
                     disabled={loading}
                   >
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -197,7 +195,7 @@ export default function RegisterPage() {
 
               {/* Confirm Password */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Confirmar Senha
                 </label>
                 <div className="relative">
@@ -207,13 +205,13 @@ export default function RegisterPage() {
                     value={formData.confirmPassword}
                     onChange={handleChange}
                     placeholder="••••••••"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003D82] focus:border-transparent transition"
+                    className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition"
                     disabled={loading}
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-3 text-gray-500 hover:text-gray-700 transition"
+                    className="absolute right-3 top-3 text-slate-400 hover:text-slate-300 transition"
                     disabled={loading}
                   >
                     {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -222,10 +220,10 @@ export default function RegisterPage() {
               </div>
 
               {/* Terms */}
-              <label className="flex items-start gap-2 text-sm text-gray-700 cursor-pointer">
-                <input type="checkbox" className="mt-1 w-4 h-4" required disabled={loading} />
+              <label className="flex items-start gap-2 text-sm text-slate-300 cursor-pointer">
+                <input type="checkbox" className="mt-1 w-4 h-4 bg-slate-700/50 border-slate-600 rounded" required disabled={loading} />
                 Concordo com os{' '}
-                <a href="#" className="text-[#003D82] font-medium hover:text-[#0369A1] transition">
+                <a href="#" className="text-cyan-400 font-medium hover:text-cyan-300 transition">
                   Termos de Serviço
                 </a>
               </label>
@@ -234,7 +232,7 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-[#003D82] to-[#0369A1] text-white py-3 rounded-lg font-semibold hover:shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 Próximo <ChevronRight size={20} />
               </button>
@@ -243,7 +241,7 @@ export default function RegisterPage() {
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Business Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Nome do Negócio
                 </label>
                 <input
@@ -252,34 +250,34 @@ export default function RegisterPage() {
                   value={formData.businessName}
                   onChange={handleChange}
                   placeholder="Sua empresa"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003D82] focus:border-transparent transition"
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition"
                   disabled={loading}
                 />
               </div>
 
               {/* Business Type */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Tipo de Negócio
                 </label>
                 <select
                   name="businessType"
                   value={formData.businessType}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003D82] focus:border-transparent transition"
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition"
                   disabled={loading}
                 >
-                  <option value="">Selecione...</option>
-                  <option value="retail">Varejo</option>
-                  <option value="service">Serviços</option>
-                  <option value="food">Alimentação</option>
-                  <option value="other">Outro</option>
+                  <option value="" className="bg-slate-900">Selecione...</option>
+                  <option value="retail" className="bg-slate-900">Varejo</option>
+                  <option value="service" className="bg-slate-900">Serviços</option>
+                  <option value="food" className="bg-slate-900">Alimentação</option>
+                  <option value="other" className="bg-slate-900">Outro</option>
                 </select>
               </div>
 
               {/* Phone */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
                   Telefone
                 </label>
                 <input
@@ -288,7 +286,7 @@ export default function RegisterPage() {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="(11) 99999-9999"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#003D82] focus:border-transparent transition"
+                  className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition"
                   disabled={loading}
                 />
               </div>
@@ -299,14 +297,14 @@ export default function RegisterPage() {
                   type="button"
                   onClick={() => setStep(1)}
                   disabled={loading}
-                  className="flex-1 border-2 border-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-50 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 border-2 border-slate-600 text-white py-3 rounded-lg font-semibold hover:bg-slate-700/50 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Voltar
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 bg-gradient-to-r from-[#003D82] to-[#0369A1] text-white py-3 rounded-lg font-semibold hover:shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Criando...' : 'Criar Conta'}
                 </button>
@@ -315,16 +313,16 @@ export default function RegisterPage() {
           )}
 
           {/* Login Link */}
-          <p className="text-center text-gray-600 mt-6">
+          <p className="text-center text-slate-400 mt-6">
             Já tem conta?{' '}
-            <Link href="/login" className="text-[#003D82] font-semibold hover:text-[#0369A1] transition">
+            <Link href="/login" className="text-cyan-400 font-semibold hover:text-cyan-300 transition">
               Fazer login
             </Link>
           </p>
         </div>
 
         {/* Footer Text */}
-        <p className="text-center text-white text-sm mt-6">
+        <p className="text-center text-slate-500 text-sm mt-6">
           Seus dados são protegidos com criptografia de ponta
         </p>
       </div>
