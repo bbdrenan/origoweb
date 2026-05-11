@@ -3,6 +3,13 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ChevronRight, Check, Star, TrendingUp, BarChart3, Lock, Zap, Users } from 'lucide-react';
+import { Testimonials } from '@/components/testimonials';
+import { VideoDemo } from '@/components/video-demo';
+import { Comparison } from '@/components/comparison';
+import { Security } from '@/components/security';
+import { UseCases } from '@/components/use-cases';
+import { Guarantee } from '@/components/guarantee';
+import { Blog } from '@/components/blog';
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,8 +29,9 @@ export default function Home() {
             
             <div className="hidden md:flex items-center gap-8">
               <a href="#features" className="text-gray-600 hover:text-gray-900 transition">Funcionalidades</a>
+              <a href="#testimonials" className="text-gray-600 hover:text-gray-900 transition">Depoimentos</a>
               <a href="#pricing" className="text-gray-600 hover:text-gray-900 transition">Preços</a>
-              <a href="#faq" className="text-gray-600 hover:text-gray-900 transition">FAQ</a>
+              <a href="#blog" className="text-gray-600 hover:text-gray-900 transition">Blog</a>
               <Link href="/onboarding" className="px-6 py-2 bg-[#003D82] text-white rounded-lg hover:bg-[#002856] transition font-medium">
                 Começar
               </Link>
@@ -43,8 +51,9 @@ export default function Home() {
           {isMenuOpen && (
             <div className="md:hidden pb-4 border-t border-gray-200">
               <a href="#features" className="block py-2 text-gray-600 hover:text-gray-900">Funcionalidades</a>
+              <a href="#testimonials" className="block py-2 text-gray-600 hover:text-gray-900">Depoimentos</a>
               <a href="#pricing" className="block py-2 text-gray-600 hover:text-gray-900">Preços</a>
-              <a href="#faq" className="block py-2 text-gray-600 hover:text-gray-900">FAQ</a>
+              <a href="#blog" className="block py-2 text-gray-600 hover:text-gray-900">Blog</a>
               <Link href="/onboarding" className="block mt-4 px-4 py-2 bg-[#003D82] text-white rounded-lg text-center font-medium">
                 Começar
               </Link>
@@ -149,133 +158,83 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Planos Simples e Transparentes</h2>
-            <p className="text-xl text-gray-600">Escolha o plano ideal para seu negócio</p>
-          </div>
+      {/* Video Demo - Melhoria 2 */}
+      <VideoDemo />
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
-            {[
-              {
-                name: 'Gratuito',
-                price: 'R$ 0',
-                desc: 'Para começar',
-                features: ['Dashboard básico', 'Até 100 produtos', 'Até 50 vendas/mês', 'Suporte por email'],
-              },
-              {
-                name: 'Premium',
-                price: 'R$ 49',
-                desc: '/mês',
-                features: ['Dashboard completo', 'Produtos ilimitados', 'Vendas ilimitadas', 'IA integrada', 'Integrações', 'Suporte prioritário'],
-                highlight: true,
-              },
-            ].map((plan, i) => (
-              <div key={i} className={`rounded-xl p-8 border-2 transition ${plan.highlight ? 'border-[#003D82] bg-gradient-to-br from-[#003D82]/5 to-[#0369A1]/5' : 'border-gray-200 bg-white'}`}>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
-                <p className="text-gray-600 mb-6">{plan.desc}</p>
-                <div className="text-4xl font-bold text-gray-900 mb-8">{plan.price}</div>
-                <button className={`w-full py-3 rounded-lg font-semibold transition mb-8 ${plan.highlight ? 'bg-gradient-to-r from-[#003D82] to-[#0369A1] text-white hover:shadow-lg' : 'border-2 border-gray-300 text-gray-900 hover:border-gray-400'}`}>
-                  Escolher Plano
-                </button>
-                <div className="space-y-4">
-                  {plan.features.map((feature, j) => (
-                    <div key={j} className="flex items-center gap-3">
-                      <Check className="w-5 h-5 text-[#059669]" />
-                      <span className="text-gray-700">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* Testimonials - Melhoria 1 */}
+      <section id="testimonials">
+        <Testimonials />
       </section>
 
-      {/* FAQ Section */}
-      <section id="faq" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Perguntas Frequentes</h2>
-            <p className="text-xl text-gray-600">Tire suas dúvidas sobre o OrigoERP</p>
-          </div>
+      {/* Use Cases - Melhoria 5 */}
+      <UseCases />
 
-          <div className="space-y-4">
-            {[
-              { q: 'Como começo a usar?', a: 'Basta se registrar gratuitamente e começar a adicionar seus produtos e vendas. Leva menos de 5 minutos!' },
-              { q: 'Posso usar no celular?', a: 'Sim! OrigoERP funciona perfeitamente em iOS, Android e web. Sincroniza automaticamente entre dispositivos.' },
-              { q: 'Meus dados estão seguros?', a: 'Seus dados são criptografados e armazenados em servidores seguros. Fazemos backup automático diário.' },
-              { q: 'Posso cancelar a qualquer momento?', a: 'Sim, sem compromisso. Você pode cancelar sua assinatura a qualquer momento pelo painel de controle.' },
-              { q: 'Qual é o suporte disponível?', a: 'Oferecemos suporte por email, WhatsApp e chat. Planos Premium têm prioridade de atendimento.' },
-            ].map((item, i) => (
-              <details key={i} className="bg-white rounded-lg border border-gray-200 p-6 cursor-pointer hover:border-[#003D82] transition group">
-                <summary className="flex items-center justify-between font-semibold text-gray-900">
-                  {item.q}
-                  <ChevronRight className="w-5 h-5 group-open:rotate-90 transition" />
-                </summary>
-                <p className="text-gray-600 mt-4">{item.a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
+      {/* Comparison - Melhoria 3 */}
+      <section id="pricing">
+        <Comparison />
+      </section>
+
+      {/* Security - Melhoria 4 */}
+      <Security />
+
+      {/* Guarantee - Melhoria 8 */}
+      <Guarantee />
+
+      {/* Blog - Melhoria 6 */}
+      <section id="blog">
+        <Blog />
       </section>
 
       {/* CTA Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="bg-gradient-to-br from-[#003D82] to-[#0369A1] rounded-2xl p-12 text-center text-white">
-            <h2 className="text-4xl font-bold mb-4">Pronto para transformar seu negócio?</h2>
-            <p className="text-lg opacity-90 mb-8">Comece grátis hoje e veja a diferença</p>
-            <Link href="/onboarding" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#003D82] rounded-lg hover:bg-gray-100 transition font-semibold">
-              Começar Agora
+            <h2 className="text-4xl font-bold mb-4">Pronto para Transformar Seu Negócio?</h2>
+            <p className="text-xl mb-8 text-blue-100">Comece grátis hoje e veja como OrigoERP pode aumentar suas vendas</p>
+            <Link href="/onboarding" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#003D82] rounded-lg hover:shadow-lg transition font-semibold">
+              Começar Grátis Agora
               <ChevronRight className="w-5 h-5" />
             </Link>
+            <p className="text-sm text-blue-100 mt-4">Sem cartão de crédito necessário • 30 dias de garantia • Cancelar a qualquer momento</p>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
+      <footer className="bg-slate-900 text-slate-400 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-[#003D82] to-[#0369A1] rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">O</span>
-                </div>
-                <span className="font-bold text-white">OrigoERP</span>
-              </div>
-              <p className="text-sm">Gestão inteligente para seu negócio</p>
+              <div className="text-white font-bold text-lg mb-4">OrigoERP</div>
+              <p className="text-sm">Gestão inteligente para MEI e pequenas empresas</p>
             </div>
             <div>
-              <h4 className="font-semibold text-white mb-4">Produto</h4>
+              <h4 className="text-white font-semibold mb-4">Produto</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition">Funcionalidades</a></li>
-                <li><a href="#" className="hover:text-white transition">Preços</a></li>
-                <li><a href="#" className="hover:text-white transition">Segurança</a></li>
+                <li><a href="#features" className="hover:text-white">Funcionalidades</a></li>
+                <li><a href="#pricing" className="hover:text-white">Preços</a></li>
+                <li><a href="#blog" className="hover:text-white">Blog</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-white mb-4">Empresa</h4>
+              <h4 className="text-white font-semibold mb-4">Empresa</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition">Sobre</a></li>
-                <li><a href="#" className="hover:text-white transition">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition">Contato</a></li>
+                <li><a href="#" className="hover:text-white">Sobre</a></li>
+                <li><a href="#" className="hover:text-white">Contato</a></li>
+                <li><a href="#" className="hover:text-white">Suporte</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-white mb-4">Legal</h4>
+              <h4 className="text-white font-semibold mb-4">Legal</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition">Privacidade</a></li>
-                <li><a href="#" className="hover:text-white transition">Termos</a></li>
-                <li><a href="#" className="hover:text-white transition">Cookies</a></li>
+                <li><a href="#" className="hover:text-white">Privacidade</a></li>
+                <li><a href="#" className="hover:text-white">Termos</a></li>
+                <li><a href="#" className="hover:text-white">Cookies</a></li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-800 pt-8 text-center text-sm">
-            <p>&copy; 2026 OrigoERP. Todos os direitos reservados.</p>
+          <div className="border-t border-slate-800 pt-8 text-center text-sm">
+            <p>© 2026 OrigoERP. Todos os direitos reservados. Desenvolvido com ❤️ para MEI e pequenas empresas.</p>
           </div>
         </div>
       </footer>
