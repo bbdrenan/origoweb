@@ -21,9 +21,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-[#003D82] to-[#0369A1] rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">O</span>
-              </div>
+              <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663598926595/vGCnYfGcCfLTaGHB.png" alt="OrigoERP" className="w-8 h-8" />
               <span className="font-bold text-lg text-gray-900">OrigoERP</span>
             </div>
             
@@ -32,7 +30,7 @@ export default function Home() {
               <a href="#testimonials" className="text-gray-600 hover:text-gray-900 transition">Depoimentos</a>
               <a href="#pricing" className="text-gray-600 hover:text-gray-900 transition">Preços</a>
               <a href="#blog" className="text-gray-600 hover:text-gray-900 transition">Blog</a>
-              <Link href="/onboarding" className="px-6 py-2 bg-[#003D82] text-white rounded-lg hover:bg-[#002856] transition font-medium">
+              <Link href="/signup" className="px-6 py-2 bg-[#003D82] text-white rounded-lg hover:bg-[#002856] transition font-medium">
                 Começar
               </Link>
             </div>
@@ -54,7 +52,7 @@ export default function Home() {
               <a href="#testimonials" className="block py-2 text-gray-600 hover:text-gray-900">Depoimentos</a>
               <a href="#pricing" className="block py-2 text-gray-600 hover:text-gray-900">Preços</a>
               <a href="#blog" className="block py-2 text-gray-600 hover:text-gray-900">Blog</a>
-              <Link href="/onboarding" className="block mt-4 px-4 py-2 bg-[#003D82] text-white rounded-lg text-center font-medium">
+              <Link href="/signup" className="block mt-4 px-4 py-2 bg-[#003D82] text-white rounded-lg text-center font-medium">
                 Começar
               </Link>
             </div>
@@ -84,7 +82,7 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/onboarding" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#003D82] to-[#0369A1] text-white rounded-lg hover:shadow-lg transition font-semibold group">
+                <Link href="/signup" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-[#003D82] to-[#0369A1] text-white rounded-lg hover:shadow-lg transition font-semibold group">
                   Começar Grátis
                   <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition" />
                 </Link>
@@ -191,7 +189,7 @@ export default function Home() {
           <div className="bg-gradient-to-br from-[#003D82] to-[#0369A1] rounded-2xl p-12 text-center text-white">
             <h2 className="text-4xl font-bold mb-4">Pronto para Transformar Seu Negócio?</h2>
             <p className="text-xl mb-8 text-blue-100">Comece grátis hoje e veja como OrigoERP pode aumentar suas vendas</p>
-            <Link href="/onboarding" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#003D82] rounded-lg hover:shadow-lg transition font-semibold">
+            <Link href="/signup" className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-[#003D82] rounded-lg hover:shadow-lg transition font-semibold">
               Começar Grátis Agora
               <ChevronRight className="w-5 h-5" />
             </Link>
@@ -205,7 +203,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div>
-              <div className="text-white font-bold text-lg mb-4">OrigoERP</div>
+              <div className="flex items-center gap-2 mb-4">
+                <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663598926595/vGCnYfGcCfLTaGHB.png" alt="OrigoERP" className="w-8 h-8" />
+                <span className="text-white font-bold text-lg">OrigoERP</span>
+              </div>
               <p className="text-sm">Gestão inteligente para MEI e pequenas empresas</p>
             </div>
             <div>

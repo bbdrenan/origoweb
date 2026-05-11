@@ -29,9 +29,12 @@ export default function DashboardPage() {
       <header className="bg-primary text-white shadow">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold">OrigoERP</h1>
-              <p className="text-blue-100">{user.businessName}</p>
+            <div className="flex items-center gap-3">
+              <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663598926595/vGCnYfGcCfLTaGHB.png" alt="OrigoERP" className="w-10 h-10" />
+              <div>
+                <h1 className="text-3xl font-bold">OrigoERP</h1>
+                <p className="text-blue-100">{user.businessName}</p>
+              </div>
             </div>
             <div className="flex items-center gap-4">
               <div className="text-right">
